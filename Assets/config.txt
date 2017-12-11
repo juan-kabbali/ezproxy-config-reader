@@ -1,0 +1,2608 @@
+#****************************EZproxy options *****************************************
+
+Name crai.uniquindio.edu.co
+# Option ProxyByHostname
+
+
+##  By default, EZproxy listens on port 2048. You can specify a different port here
+
+LoginPort 80
+LoginPortSSL 443
+
+
+##  Connection limits. == see: http://www.oclc.org/support/documentation/ezproxy/cfg/limits.htm
+
+MaxLifetime 10
+MaxSessions 1000
+MaxVirtualHosts 1000
+
+
+##  When using Safari 2.0 and later with only three hostname components, Safari defaults to blocking the cookie. With EZproxy 3.6c GA
+## (2006-03-10) or later, you can add add the following to work around the restriction.
+# Option SafariCookiePatch
+
+
+##  Securing EZproxy == see: http://www.oclc.org/support/documentation/ezproxy/example/securing.htm
+
+Audit Most
+AuditPurge 7
+Option StatusUser
+Option LogUser
+IntruderIPAttempts -interval=5 -expires=15 20
+IntruderUserAttempts -interval=5 -expires=15 10
+UsageLimit -enforce -interval=15 -expires=120 -MB=100 Global
+
+
+##                  http://www.oclc.org/support/documentation/ezproxy/cfg/logfile/
+
+
+LogFormat %h %{ezproxy-session}i %u %t "%r" %s %b %{ezproxy-dbvar0}i
+LogFile -strftime ezp%Y%m%d.log
+
+#######################################################################################################################################
+#                                                    START OF EBSCOHOST STANZAS                                                       #
+#######################################################################################################################################
+
+####
+#   EBSCO
+#   DYNAMED PLUS
+#   Intelproxy --> dynamed.com
+####
+DbVar0 ebscodynamed
+Title EBSCO DYNAMED PLUS
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=dmp&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ http://www.dynamed.com
+HJ dynamed.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   BUSSINES ULTIMATE
+#   FALTA Intelproxy --> ebscohost.com:80(.+)uid&custid=ns004363
+####
+DbVar0 ebscobussiness
+Title BUSSINESS ULTIMATE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=bsu&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ my.domain.ultimate.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ELL ENGLISH
+####
+DbVar0 ebscoell
+Title ELL ENGLISH
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ell&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ENFERMERIA AL DIA
+####
+DbVar0 ebscoead
+Title ENFERMERIA AL DIA
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=nrc-spa&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ http://www.dynamed.com
+HJ dynamed.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ACADEMIC SEARCH COMPLETE
+####
+DbVar0 ebscoasn
+Title ACADEMIC SEARCH COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=asn&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ mi.domain.complete
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   APPLIED SCIENCE & TECHNOLOGY
+####
+DbVar0 ebscoaps
+Title APPLIED SCIENCE & TECHNOLOGY
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=aps&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ART SOURCE
+####
+DbVar0 ebscoasu
+Title ART SOURCE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=asu&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   BUSINESS SOURCE COMPLETE
+####
+DbVar0 ebscobth
+Title BUSINESS SOURCE COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=ehost&defaultdb=bth
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   COMUNICATION & MASS MEDIA COMPLETE
+####
+DbVar0 ebscoufh
+Title COMUNICATION & MASS MEDIA COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=ufh&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   EDUCATION SOURCE
+####
+DbVar0 ebscoeue
+Title EDUCATION SOURCE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=eue&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ACADEMIC COLLECTION
+####
+DbVar0 ebscoe000xww
+Title Ebook ACADEMIC COLLECTION
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=e000xww&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ENVIROMENT COMPLETE
+####
+DbVar0 ebscoeih
+Title ENVIROMENT COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=eih&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ERIC EDUCATION RESOURCES INFORMATION CENTER
+####
+DbVar0 ebscoeric
+Title ERIC EDUCATION RESOURCES INFORMATION CENTER
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=eric&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   FOOD SCIENCE SOURCE
+####
+DbVar0 ebscofsr
+Title FOOD SCIENCE SOURCE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=fsr&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   FUENTE ACADEMICA
+####
+DbVar0 ebscofua
+Title FUENTE ACADEMICA
+URL http://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=ehost&defaultdb=fua
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   HOSPITALITY & TURISM COMPLETE
+####
+DbVar0 ebscohjh
+Title HOSPITALITY & TURISM COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=hjh&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   HUMANITIES SOURCE
+####
+DbVar0 ebscohsi
+Title HUMANITIES SOURCE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=hsi&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   LIBRARY & INFORMATION SCIENCE SOURCE
+####
+DbVar0 ebscolls
+Title LIBRARY & INFORMATION SCIENCE SOURCE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=lls&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   MEDICLATINA
+####
+DbVar0 ebscolth
+Title MEDICLATINA
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=lth&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   MEDLINE COMPLETE
+####
+DbVar0 ebscomdc
+Title MEDLINE COMPLETE
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=mdc&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   RELIGION Y PHILOSOPHY
+####
+DbVar0 ebscorlh
+Title RELIGION Y PHILOSOPHY
+URL http://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=ehost&defaultdb=rlh
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   SCIENCE FULL TEXT SELECT
+####
+DbVar0 ebscoscf
+Title SCIENCE FULL TEXT SELECT
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=scf&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   SOCINDEX
+####
+DbVar0 ebscosih
+Title SOCINDEX
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=sih&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   SPORT DISCUS WITH FULL TEXT
+####
+DbVar0 ebscos3h
+Title SPORT DISCUS WITH FULL TEXT
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=s3h&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   AGELINE
+####
+DbVar0 ebscognh
+Title AgeLine
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=gnh&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ALT HEALT WATCH
+####
+DbVar0 ebscoawh
+Title Alt HealthWatch
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=awh&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ENGINEERING SOURCE
+####
+DbVar0 ebscoegs
+Title Engineering Source
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=egs&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   FOOD SCIENCE AND TECHNOLOGY ABSTRACTS
+####
+DbVar0 ebscoffh
+Title FSTA - Food Science and Technology Abstracts
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&profile=ehost&defaultdb=ffh
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   PHILOSOPHERS INDEX WITH FULL TEXT
+####
+DbVar0 ebscopif
+Title Philosophers Index with Full Text
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=pif&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   PEM SOFT US
+####
+DbVar0 ebscopus
+Title PEMSoft US
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=pemsoftus&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   FLIPSTER
+####
+DbVar0 ebscoflipster
+Title Flipster
+URL  http://search.ebscohost.com/login.aspx?authtype=ip,uid&custid=ns004363&profile=eon&groupid=trial
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   SCIENTIFIC & MEDICAL ART IMAGE BASE
+####
+DbVar0 ebscoscimed
+Title Scientific & Medical Art Imagebase
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&site=scimed&return=y&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   BIOLOGICAL & AGRICULTURAL INDEX PLUS
+####
+DbVar0 ebscobai
+Title Biological & Agricultural Index Plus (H.W. Wilson) (NUEVA)
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=bai&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   ENERGY & POWER SOURCE
+####
+DbVar0 ebscoenr
+Title Energy & Power Source (NUEVA)
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=enr&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   FUENTE ACADEMICA PLUS
+####
+DbVar0 ebscofap
+Title Fuente Academica Plus (NUEVA)
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=fap&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   SOCIOLOGY SOURCE ULTIMATE
+####
+DbVar0 ebscosxi
+Title Sociology Source Ultimate (NUEVA)
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=sxi&groupid=main
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+####
+#   EBSCO
+#   EBSCO DISCOVERY SERVICE
+####
+DbVar0 ebscodiscovery
+Title Ebsco Discovery Service
+URL http://search.ebscohost.com/login.aspx?authtype=ip,uid&profile=eds
+HJ https://search.ebscohost.com
+HJ ebsco.smartimagebase.com
+HJ eds.a.ebscohost.com
+HJ eds.b.ebscohost.com
+HJ eds.c.ebscohost.com
+HJ eds.d.ebscohost.com
+HJ eds.e.ebscohost.com
+HJ ehis.ebscohost.com
+HJ eoncontent.ebscohost.com
+HJ m.ebscohost.com
+HJ openurl.ebscohost.com
+HJ resolver.ebscohost.com
+HJ search.ebscohost.mobi
+HJ search.epnet.com
+HJ web.a.ebscohost.com
+HJ web.b.ebscohost.com
+HJ web.c.ebscohost.com
+HJ web.d.ebscohost.com
+HJ web.e.ebscohost.com
+HJ web.ebscohost.com
+HJ www.netlibrary.com
+HJ heritagerailway.eoncontent.ebscohost.com
+DJ heritagerailway.eoncontent.ebscohost.com
+DJ ebscohost.com
+DJ dynamed.com
+DJ ebscohost.mobi
+DJ epnet.com
+DJ netlibrary.com
+DJ smartimagebase.com
+Find proxy.cfm?url=http://
+Replace proxy.cfm?url=http://^A
+Find /login?url=http://
+Replace /login?url=http://^A
+NeverProxy *.eoncontent.ebscohost.com
+NeverProxy ebscovideos.ebscohost.com
+NeverProxy rps2images.ebscohost.com
+NeverProxy rpsimages.ebscohost.com
+NeverProxy epmedia.ebscohost.com
+NeverProxy imageserver.ebscohost.com
+NeverProxy *.ebsco-content.com
+NeverProxy *.footnotelibrary.com
+Option AllowSendGZip
+
+#######################################################################################################################################
+#                                                      END OF EBSCOHOST STANZAS                                                       #
+#######################################################################################################################################
+
+
+# **************************** Database Definitions *****************************************?
+
+####
+#   INCITES
+####
+DbVar0 incites
+Option DomainCookieOnly
+Title InCites Benchmarking, InCites Journal and Highly Cited Data
+URL https://incites.thomsonreuters.com
+DJ incites.thomsonreuters.com
+Option Cookie
+
+####
+#   BMJ
+####
+DbVar0 bmjjournals
+Title BMJ Journals
+URL http://www.bmj.com/
+Domain group.bmj.com
+HJ adc.bmj.com
+HJ adc.bmjjournals.com
+HJ aim.bmj.com
+HJ ard.bmj.com
+HJ ard.bmjjournals.com
+HJ bestpractice.bmj.com
+HJ bjo.bmj.com
+HJ bjo.bmjjournals.com
+HJ bjsm.bmj.com
+HJ bjsm.bmjjournals.com
+HJ bmj.com
+HJ bmjopen.bmj.com
+HJ bmjopengastro.bmj.com
+HJ bmjopenrespres.bmj.com
+HJ bmjopensem.bmj.com
+HJ casereports.bmj.com
+HJ casereports.bmjjournals.com
+HJ clinicalevidence.bmj.com
+HJ clinicalevidence.com
+HJ drc.bmj.com
+HJ dtb.bmj.com
+HJ ebm.bmj.com
+HJ ebm.bmjjournals.com
+HJ ebmh.bmj.com
+HJ ebmh.bmjjournals.com
+HJ ebn.bmj.com
+HJ ebn.bmjjournals.com
+HJ ejhp.bmj.com
+HJ emails.bmj.com
+HJ emj.bmj.com
+HJ emj.bmjjournals.com
+HJ ep.bmj.com
+HJ ep.bmjjournals.com
+HJ fg.bmj.com
+HJ fn.bmj.com
+HJ fn.bmjjournals.com
+HJ group.bmj.com
+HJ gut.bmj.com
+HJ gut.bmjjournals.com
+HJ heart.bmj.com
+HJ heart.bmjjournals.com
+HJ heartasia.bmj.com
+HJ injuryprevention.bmj.com
+HJ inpractice.bmj.com
+HJ inpractice.bvapublications.com
+HJ jamia.bmj.com
+HJ jamia.bmjjournals.com
+HJ jcp.bmj.com
+HJ jcp.bmjjournals.com
+HJ jech.bmj.com
+HJ jech.bmjjournals.com
+HJ jech.com
+HJ jfprhc.bmj.com
+HJ jme.bmj.com
+HJ jme.bmjjournals.com
+HJ jmedethics.com
+HJ jmedgenet.com
+HJ jmg.bmj.com
+HJ jmg.bmjjournals.com
+HJ jnis.bmj.com
+HJ jnnp.bmj.com
+HJ jnnp.bmjjournals.com
+HJ jnnp.com
+HJ journals.bmj.com
+HJ jramc.bmj.com
+HJ learning.bmj.com
+HJ lupus.bmj.com
+HJ mh.bmj.com
+HJ mh.bmjjournals.com
+HJ mp.bmj.com
+HJ mp.bmjjournals.com
+HJ oem.bmj.com
+HJ oem.bmjjournals.com
+HJ openheart.bmj.com
+HJ pmj.bmj.com
+HJ pmj.bmjjournals.com
+HJ pn.bmj.com
+HJ pn.bmjjournals.com
+HJ qir.bmj.com
+HJ qshc.bmj.com
+HJ qshc.bmjjournals.com
+HJ qualitysafety.bmj.com
+HJ rmdopen.bmj.com
+HJ spcare.bmj.com
+HJ stel.bmj.com
+HJ sti.bmj.com
+HJ sti.bmjjournals.com
+HJ student.bmj.com
+HJ thorax.bmj.com
+HJ thorax.bmjjournals.com
+HJ tobaccocontrol.bmj.com
+HJ us.bestpractice.bmj.com
+HJ veterinaryrecord.bmj.com
+HJ veterinaryrecord.bvapublications.com
+HJ vetrecordcasereports.bmj.com
+HJ vetrecordopen.bmj.com
+HJ www.clinicalevidence.com
+HJ www.bmj.com
+HJ www.bmjjournals.com
+HJ www.injuryprevention.com
+HJ www.jech.com
+HJ www.jnnp.com
+HJ www.jmedethics.com
+HJ www.jmedgenet.com
+DJ bmj.com
+HJ openurl.highwire.org
+RedirectSafe doaj.org
+RedirectSafe pbsociety.org.pl
+RedirectSafe scielo.org
+RedirectSafe acta.media.pl
+RedirectSafe acta.fapz.uniag.sk
+RedirectSafe degruyter.com
+RedirectSafe ageconsearch.umn.edu
+RedirectSafe aprendeenlinea.udea.edu.co
+
+####
+#   PRIMAL PICTURES
+####
+DbVar0 primal
+Title Primal Pictures
+URL http://www.anatomy.tv
+HJ anatomy.tv
+HJ https://anatomy.tv
+DJ anatomy.tv
+DJ anatomyreferencecenter.com
+
+####
+#   CONSTRUDATA
+####
+DbVar0 construdata
+Title Construdata
+URL http://www.construdata.com/homenewdiseno.asp
+DJ construdata.com
+DJ legis.com.co
+DJ multilegis.com
+
+####
+#   DANE
+####
+DbVar0 dane
+Title DANE
+URL http://www.dane.gov.co/index.php/estadisticas-sociales/calidad-de-vida-ecv
+DJ dane.gov.co
+HJ dane.gov.co
+
+####
+#   ENCYCLOPEDIA OF LANGUAGE AND EDUCATION SPRINGERLINK
+####
+DbVar0 springerlink
+Title Encyclopedia of Language and Education SpringerLink
+URL http://link.springer.com
+HJ aa.springer.de
+HJ download.springer.com
+HJ ebooks.springerlink.com
+HJ link.springer.com
+HJ link.springer.de
+HJ link.springer-ny.com
+HJ rd.springer.com
+HJ springerlink.metapress.com
+HJ www.link.springer.com
+HJ www.springerlink.com
+DJ springer.de
+DJ springerlink.com
+DJ springer.com
+DJ sprn.gr
+DJ springer-ny.com
+
+####
+#   ICONTEC INTERNACIONAL
+####
+DbVar0 icontec
+T ICONTEC INTERNACIONAL
+U http://e-normas.icontec.org/icontec_enormas_mobile/?us_GUID=13fc35be-f698-4f8b-ad59-446bad6fa303
+DJ icontec.org
+DJ e-normas.icontec.org
+
+####
+#   IEEE
+####
+DbVar0 ieee
+Option DomainCookieOnly
+Title IEEE Xplore
+URL http://www.ieee.org/ieeexplore
+HJ ieeexplore.ieee.org
+HJ m.ieeexplore.ieee.org
+HJ opac.ieeecomputersociety.org
+HJ search.ieeexplore.ieee.org
+HJ www.computer.org
+HJ www.ieeexplore.ieee.org
+HJ www.ieee.org
+HJ xplorestaging.ieee.org
+DJ computer.org
+DJ ieee.org
+DJ ieeecomputersociety.org
+Option Cookie
+
+####
+#   LEYEX INFO
+####
+DbVar0 leyexinfo
+Title Leyex Info
+URL http://uniquindio.leyex.info/consulta.php?tipo_listado=1&busq=1&sec=1
+DJ leyex.info
+
+####
+#   CODIGOS LEYEX
+####
+DbVar0 codleyex
+Title CodigosLeyex.info
+URL  http://uniquindio.codigosleyex.info/codes/home
+DJ codigosleyex.info
+
+####
+#   BIBLIOTECA VIRTUAL PEARSON
+####
+DbVar0 pearson
+Title Biblioteca Virtual Pearson
+URL https://www.biblionline.pearson.com/AuthURLEzProxyNew.aspx?i=i6bj9wtHS4d%2bI6tLqEz%2fqA%3d%3d
+DJ pearsonbv.com
+DJ pearson.com
+DJ *.pearson.com
+
+####
+#   OA LIBRARY
+####
+DbVar0 oalibrary
+Title OALIBRARY
+URL http://104.45.30.167/search/login/
+DJ *.45.30.167
+DJ 104.45.30.*
+HJ 104.45.30.*
+DJ 104.45.0.182/*
+HJ 104.45.0.182/*
+DJ *.jgateplus.com
+HJ *.jgateplus.com
+DJ jgateplus.*
+HJ jgateplus.*
+
+####
+#   SALUD LEYEX
+####
+DbVar0 saludleyex
+Title Saludleyex Info
+URL http://uniquindio.saludleyex.info/consulta.php?tipo_listado=1&busq=1&sec=1
+DJ saludleyex.info
+
+####
+#   UP TO DATE
+####
+DbVar0 uptodate
+Title UpToDate
+URL  http://www.uptodate.com/online
+HJ https://www.uptodate.com
+HJ https://www.uptodateonline.com
+HJ uptodate.com
+HJ uptodateonline.com
+HJ www.uptodate.com
+HJ www.uptodateonline.com
+DJ uptodate.com
+AllowVars u
+EncryptVar u <A SECRET STRING>
+
+####
+#   AMERICAN DOCTORAL DISSERTATIONS
+####
+DbVar0 adoctoraldis
+Title AMERICAN DOCTORAL DISSERTATIONS
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=ddu&groupid=main
+HJ www.opendissertations.com
+Dj opendissertations.com
+
+####
+#   NEW ENGLAND JOURNAL MEDICINE
+####
+DbVar0 nejm
+Title New England Journal Medicine
+U http://www.nejm.org/
+DJ nejm.org
+HJ www.nejm.org
+
+####
+#   RESIDENT 360
+####
+DbVar0 resident360
+Title Resident 360 - NEJM  (DEMOSTRACISN)
+U https://resident360.nejm.org/pages/home
+DJ nejm.org
+HJ http://resident360.nejm.org/pages/home
+HJ nejm.org
+DJ resident360.nejm.org
+HJ resident360.nejm.org
+
+####
+#   WILEY
+####
+DbVar0 wiley
+HTTPHeader X-Requested-With
+Option X-Forwarded-For
+Cookie theproxy=ezproxy; domain=.onlinelibrary.wiley.com
+Title Wiley Online
+URL http://onlinelibrary.wiley.com
+HJ aapm.onlinelibrary.wiley.com
+HJ aasldpubs.onlinelibrary.wiley.com
+HJ agupubs.onlinelibrary.wiley.com
+HJ anthrosource.onlinelibrary.wiley.com
+HJ api.wiley.com
+HJ ascpt.onlinelibrary.wiley.com
+HJ aslopubs.onlinelibrary.wiley.com
+HJ doi.wiley.com
+HJ esajournals.onlinelibrary.wiley.com
+HJ febs.onlinelibrary.wiley.com
+HJ interscience.wiley.com
+HJ mrw.interscience.wiley.com
+HJ obgyn.onlinelibrary.wiley.com
+HJ physoc.onlinelibrary.wiley.com
+HJ secure.onlinelibrary.wiley.com
+HJ wileyonlinelibrary.com
+HJ www.esajournals.org
+HJ www.interscience.wiley.com
+HJ www.mrw.interscience.wiley.com
+HJ www.onlinelibrary.wiley.com
+HJ www.wiley.com
+HJ www.wileyonlinelibrary.com
+HJ www.wileyopenaccess.com
+HJ www3.interscience.wiley.com
+HJ https://aapm.onlinelibrary.wiley.com
+HJ https://aasldpubs.onlinelibrary.wiley.com
+HJ https://agupubs.onlinelibrary.wiley.com
+HJ https://anthrosource.onlinelibrary.wiley.com
+HJ https://api.wiley.com
+HJ https://ascpt.onlinelibrary.wiley.com
+HJ https://aslopubs.onlinelibrary.wiley.com
+HJ https://doi.wiley.com
+HJ https://esajournals.onlinelibrary.wiley.com
+HJ https://febs.onlinelibrary.wiley.com
+HJ https://interscience.wiley.com
+HJ https://mrw.interscience.wiley.com
+HJ https://obgyn.onlinelibrary.wiley.com
+HJ https://physoc.onlinelibrary.wiley.com
+HJ https://secure.onlinelibrary.wiley.com
+HJ https://wileyonlinelibrary.com
+HJ https://www.esajournals.org
+HJ https://www.interscience.wiley.com
+HJ https://www.mrw.interscience.wiley.com
+HJ https://www.onlinelibrary.wiley.com
+HJ https://www.wiley.com
+HJ https://www.wileyonlinelibrary.com
+HJ https://www.wileyopenaccess.com
+HJ https://www3.interscience.wiley.com
+HJ aapm.onlinelibrary.wiley.com
+DJ wiley.com
+DJ esajournals.org
+DJ wileyopenaccess.com
+DJ wileyonlinelibrary.com
+Option NoX-Forwarded-Fo
+
+####
+#   WEB OF SCIENCE
+####
+DbVar0 webscience
+OPTION DOMAINCOOKIEONLY
+Title Web of Science
+URL http://www.webofknowledge.com
+Host www.webofknowledge.com
+HTTPHeader Origin
+DJ webofknowledge.com
+DJ webofscience.com
+DJ myendnoteweb.com
+Find value="http://
+Replace value="http://^A
+Find VALUE="http://
+Replace VALUE="http://^A
+Find rurl=http://
+Replace rurl=http://^A
+Find product_st_thomas=http://
+Replace product_st_thomas=http://^A
+Find return_url=http://
+Replace return_url=http://^A
+Find ST_URL=http://
+Replace ST_URL=http://^A
+Find "CIT.GATEWAY_URL">gateway.webofknowledge.com
+Replace "CIT.GATEWAY_URL">^pgateway.webofknowledge.com^
+Find value='gateway.webofknowledge.com/gateway/Gateway.cgi'
+Replace value='^pgateway.webofknowledge.com^/gateway/Gateway.cgi'
+OPTION COOKIE
+
+####
+#   GIDEON ONLINE
+####
+DbVar0 gideon
+Title GIDEON Online
+URL http://search.ebscohost.com/login.aspx?site=gideon&return=y
+DJ http://www.gideononline.net
+DJ http://web.gideononline.com
+
+####
+#   GLOBAL
+####
+DbVar0 Global
+Title Global Journal
+URL http://104.45.30.167/search/login/
+Domain globaljournal.com
+
+####
+#   SISTEMAS DE GESTION DE SEGURIDAD
+####
+DbVar0 sgsst
+Title Sistema de Gestion de Seguridad y Salud en el Trabajo
+URL http://uniquindio.sgsst-global.com/
+
+
+####
+#   SCIENCE SOCIETIES
+####
+DbVar0 sciencesocieties
+T Science Societies
+U https://dl.sciencesocieties.org/
+HJ sciencesocieties.org
+
+####
+#   MAGISTERIO
+####
+DbVar0 magisterio
+T Magisterio
+U http://bibliotecadigital.magisterio.co
+HJ magisterio.co
+
+#######################################################################################################################################
+#                                                    START OF ELSEVIER STANZAS                                                       #
+#######################################################################################################################################
+
+
+####
+#   ELSEVIER
+#   SCIVERSE SCIENCE DIRECT
+####
+DbVar0 sciencedirect
+Cookie BROWSER_SUPPORTS_COOKIES=1;domain=.sciencedirect.com
+AnonymousURL +http://rss.sciencedirect.com/
+Title ELSEVIER ScienceDirect
+URL https://www.sciencedirect.com
+HJ sciencedirect.com
+DJ sciencedirect.com
+HJ linkinghub.elsevier.com
+DJ *.els-cdn.com
+HJ admintool.elsevier.com
+HJ online.tableau.com
+HJ help-admintool.elsevier.com
+HJ tableau-admintool.elsevier.com
+DJ www.elsevier.com
+Find value="http://
+Replace value="http://^A
+Find %22%3A%22http%3A%2F%2Fsciverse-shindig.elsevier.com%2F
+Replace %22%3A%22http%3A%2F%2F^psciverse-shindig.elsevier.com^%2F
+Find gsUrl%22%3A%22http%3A%2F%2Fwww.sciencedirect.com%2F
+Replace gsUrl%22%3A%22http%3A%2F%2F^pwww.sciencedirect.com^%2F
+Find pdfurl%3D%22http%3A%2F%2Fwww.sciencedirect.com%2F
+Replace pdfurl%3D%22http%3A%2F%2F^pwww.sciencedirect.com^%2F
+Find pdfurl="//www.sciencedirect.com/
+Replace pdfurl="//^pwww.sciencedirect.com^/
+Option Cookie
+
+####
+#   ELSEVIER
+#   EMBASE
+####
+DbVar0 embase
+Title EMBASE
+URL http://www.embase.com
+HJ www.embase.com
+DJ embase.com
+HJ acw.elsevier.com
+NeverProxy static.embase.com
+
+####
+#   ELSEVIER
+#   SCIVERSE SCOPUS
+####
+DbVar0 scopus
+Option Cookie
+ProxyHostnameEdit www.scopus.com$ www-scopus-com
+MimeFilter text/uri-list .* javascript
+AnonymousURL +http://syndic8.scopus.com/*
+Title SciVerse Scopus
+MimeFilter application/json .* javascript
+URL https://www2.scopus.com/home.url
+HJ https://www.scopus.com
+HJ https://www2.scopus.com
+HJ www.scopus.com
+HJ www2.scopus.com
+DJ scopus.com
+Find %22%3A%22http%3A%2F%2Fsciverse-shindig.elsevier.com%2F
+Replace %22%3A%22http%3A%2F%2F^psciverse-shindig.elsevier.com^%2F
+Find gsUrl%22%3A%22https%3A%2F%2Fwww2.scopus.com%2F
+Replace gsUrl%22%3A%22https%3A%2F%2F^pwww2.scopus.com^%2F
+NeverProxy www.elsevier.com
+AnonymousURL -*
+
+####
+#   ELSEVIER
+#   ENGINEERING VILLAGE
+####
+DbVar0 evillage
+Option DomainCookieOnly
+Title Engineering Village
+URL http://www.engineeringvillage.com
+HJ https://www.engineeringvillage.com
+HJ engineeringvillage.com
+HJ www.engineeringvillage.com
+HJ www.engineeringvillage2.org
+HJ acw.elsevier.com
+DJ ei.org
+DJ engineeringvillage.com
+DJ referexengineering.elsevier.com
+Option Cookie
+
+
+####
+#   ELSEVIER
+#   REAXYS
+####
+DbVar0 reaxys
+T Reaxys
+U https://www.reaxys.com
+DJ reaxys.com
+HJ www.reaxys.com
+HJ sc.elsevier.com
+Find window.open(response)
+Replace window.open(response.replace('linksolver.ovid.com', '^plinksolver.ovid.com^').replace('sc.elsevier.com', '^psc.elsevier.com^'))
+Option HttpsHyphens
+
+
+#######################################################################################################################################
+#                                                    END OF ELSEVIER STANZAS                                                          #
+#######################################################################################################################################
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------#
+
+
+#######################################################################################################################################
+#                                                    START OF GALE GROUP STANZAS                                                      #
+#######################################################################################################################################
+
+
+####
+#   GALE
+#   VIRTUAL REFERENCE LIBRARY
+####
+DbVar0 gale
+Title GALE VIRTUAL REFERENCE LIBRARY GVRL
+URL http://infotrac.galegroup.com/itweb/udq?db=GVRL
+
+####
+#   GALE
+#   POWER SPEAK LANGUAGES
+####
+DbVar0 powerspeak
+Title POWERSPEAK LANGUAGES
+URL http://infotrac.galegroup.com/itweb/udq2?db=PWSP
+HJ access.gale.com
+HJ http://gale.powerspeak.com/
+HJ gale.powerspeak.com
+HJ www.galenet.com
+HJ bi.galegroup.com
+HJ bna.galegroup.com
+HJ education.gale.com
+HJ find.galegroup.com
+HJ galenet.galegroup.com
+HJ galesites.com
+HJ galesupport.com
+HJ gdc.galegroup.com
+HJ go.galegroup.com
+HJ ic.galegroup.com
+HJ infotrac.galenet.com
+HJ infotrac.london.galegroup.com
+HJ link.galegroup.com
+HJ ncco.galegroup.com
+HJ support.gale.com
+HJ tinygaleurl.com
+HJ www.infotrac.london.galegroup.com
+HJ www.mygovernment.us
+HJ pdfserve.galegroup.com
+HJ shakespeare.galegroup.com
+HJ auth.go.galegroup.com
+HJ vs.galegroup.com
+HJ sa.galegroup.com
+HJ www.nelnetsolutions.com
+HJ www.chiltonlibrary.com
+DJ galegroup.com
+DJ gale.powerspeak.com
+DJ galenet.com
+DJ galepages.com
+DJ galesites.com
+DJ galesupport.com
+DJ google.com
+DJ mygovernment.us
+DJ readspeaker.com
+DJ tinygaleurl.com
+DJ nelnetsolutions.com
+DJ chiltonlibrary.com
+DJ ggimg.com
+NeverProxy library.demographicsnow.com
+NeverProxy apis.google.com
+
+
+#######################################################################################################################################
+#                                                    END OF GALE GROUP STANZAS                                                        #
+#######################################################################################################################################
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------#
+
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------#
+
+
+#######################################################################################################################################
+#                                                      START OF EBOOKS STANZAS                                                        #
+#######################################################################################################################################
+
+
+####
+#   E-BOOKS 7-24
+#   EDITORIALES
+####
+DbVar0 ebooks724
+Title E-BOOKS 7-24 Editoriales
+URL http://www.ebooks7-24.com
+DJ *.ebooks7-24.com
+DJ *.mcgraw-hill.es
+DJ *.mcgraw-hill.com
+DJ *.mheducation.com
+
+####
+#   E-BOOKS 7-24
+#   MC GRAW - HILL
+####
+DbVar0 ebooksmcgh
+T McGraw-Hill
+U http://www.ebooks7-24.com/?ed=256
+DJ ebooks7-24.com
+
+####
+#   E-BOOKS 7-24
+#   ECOE EDICIONES
+####
+DbVar0 ebooksecoe
+T Ecoe Ediciones
+U http://www.ebooks7-24.com/?ed=83
+DJ ebooks7-24.com
+DJ mi.dominio.unico
+
+####
+#   E-BOOKS 7-24
+#   CENGAGE LERANING
+####
+DbVar0 ebookscl
+T Cengage Learning
+U http://www.ebooks7-24.com/?ed=272
+DJ ebooks7-24.com
+
+####
+#   E-BOOKS 7-24
+#   CIB
+####
+DbVar0 ebookscib
+T CIB
+U http://www.ebooks7-24.com/?ed=270
+DJ ebooks7-24.com
+
+
+#######################################################################################################################################
+#                                                        END OF EBOOKS STANZAS                                                        #
+#######################################################################################################################################
+
+
+Title -hide DOI System
+URL http://dx.doi.org
+Domain doi.org
