@@ -31,7 +31,7 @@ class Stanza
     /**
      * @param mixed $db_var
      */
-    public function setDbVar($db_var): void
+    public function setDbVar($db_var)
     {
         $this->db_var = $db_var;
     }
@@ -47,7 +47,7 @@ class Stanza
     /**
      * @param mixed $title
      */
-    public function setTitle($title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -63,7 +63,7 @@ class Stanza
     /**
      * @param mixed $url
      */
-    public function setUrl($url): void
+    public function setUrl($url)
     {
         $this->url = $url;
     }
@@ -79,7 +79,7 @@ class Stanza
     /**
      * @param array $patterns
      */
-    public function setPatterns(array $patterns): void
+    public function setPatterns(array $patterns)
     {
         $this->patterns = $patterns;
     }

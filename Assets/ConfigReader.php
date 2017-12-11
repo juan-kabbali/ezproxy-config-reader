@@ -52,6 +52,7 @@ function applyRegexToConfigFile($config_file):array {
             }
         }
     }
+    return $stanzas_array;
 }
 
 
