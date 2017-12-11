@@ -40,14 +40,14 @@ function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpas
 
         // ADD IT TO ID ACCOUNT
         $sql_cuentas_x_basedatos = "INSERT INTO cuentas_x_basedatos (cuenta_id, basedatos_id) VALUES ('$account_value','$stanza->db_var')";
-        mysqli_query($sql_cuentas_x_basedatos, $conn) or die(mysqli_error($conn));
+        mysqli_query($conn, $sql_cuentas_x_basedatos ) or die(mysqli_error($conn));
         echo $stanza->title." added to account ".$account_value."\n";
         //echo 'INSERT INTO cuentas_x_basedatos (cuenta_id, basedatos_id) VALUES (' .$account_value . ',' . $stanza->db_var . '); <br>';
 
         foreach ($stanza->patterns as $pattern) {
             // ADD PATTERNS TO DATABASE
             $sql_adm_basedatos_patrones = "INSERT INTO adm_basedatos_patrones (basedatos_id, patron) VALUES ('$stanza->db_var','$pattern')";
-            mysqli_query($sql_adm_basedatos_patrones, $conn) or die(mysqli_error($conn));
+            mysqli_query($conn, $sql_adm_basedatos_patrones) or die(mysqli_error($conn));
             echo $pattern." added to database ".$stanza->title."\n";
             //echo 'INSERT INTO adm_basedatos_patrones ( basedatos_id, patron) VALUES (' . $stanza->db_var . ', ' . $pattern . '); <br>';
         }
