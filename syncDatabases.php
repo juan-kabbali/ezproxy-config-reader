@@ -47,6 +47,8 @@ if(file_exists($config_file_path)){
 $stanzas_array = applyRegexToConfigFile($config_file);
 GenerateSQL($stanzas_array, $account_value, $mysqluser_value, $mysqlpass_value);
 
+exit(0);
+
 
 
 
