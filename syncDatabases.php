@@ -10,7 +10,6 @@ include "Assets/CommandOptions.php";
 include "Assets/ConfigReader.php";
 include "Assets/SqlManager.php";
 
-var_dump($argv);
 $account_value;
 $mysqluser_value;
 $mysqlpass_value;
