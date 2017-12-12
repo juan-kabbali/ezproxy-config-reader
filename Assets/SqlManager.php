@@ -20,13 +20,13 @@ function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpas
     }
 
     // DELETE BEFORE CREATE REGISTRIES
-    $sql_truncate_basedatos = "TRUNCATE TABLE adm_basedatos";
+    $sql_truncate_basedatos = "DELETE FROM adm_basedatos";
     mysqli_query($conn, $sql_truncate_basedatos) or die(mysqli_error($conn));
 
     $sql_delete_cuenta = "DELETE FROM cuentas_x_basedatos WHERE cuenta_id = '$account_value'";
     mysqli_query($conn, $sql_delete_cuenta) or die(mysqli_error($conn));
 
-    $sql_truncate_patrones = "TRUNCATE TABLE adm_basedatos_patrones";
+    $sql_truncate_patrones = "DELETE FROM adm_basedatos_patrones";
     mysqli_query($conn, $sql_truncate_patrones) or die(mysqli_error($conn));
 
     foreach ($stanzas_array as $stanza) {
