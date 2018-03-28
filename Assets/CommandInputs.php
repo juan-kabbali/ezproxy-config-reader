@@ -6,6 +6,7 @@
  * Time: 3:56 PM
  */
 
+//Inputs to run syncDatabases commmand
 $ACCOUNT = '--account';
 $MYSQLUSER = '--mysqluser';
 $MYSQLPASS = '--mysqlpass';

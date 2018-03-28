@@ -6,7 +6,7 @@
  * Time: 3:53 PM
  */
 
-include "Assets/CommandOptions.php";
+include "Assets/CommandInputs.php";
 include "Assets/ConfigReader.php";
 include "Assets/SqlManager.php";
 
