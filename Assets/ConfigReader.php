@@ -12,7 +12,7 @@ function applyRegexToConfigFile($config_file):array {
     $dbvarRegex = '(?<dbvar>(?<!\h|#|\d|\w)(dbvar0|DbVar0)\h(.*\w))';
     $titleRegex = '(?<title>(?<!\h|#|\d|\w)(Title|T)\h(.*\w))';
     $urlRegex = '(?<url>(?<!\h|#|\d|\w)(U|URL)\h(.*\w))';
-    $djhjhostRegex = '(?<djhjhost>(?<!\h|#|\d|\w)(DJ|HJ|Host)\h(.*\w))';
+    $djhjhostRegex = '(?<djhjhost>(?<!\h|#|\d|\w)(Domain|DJ|HJ|Host)\h(.*\w))';
     $fullRegex = '/' . $dbvarRegex . '|' . $titleRegex . '|' . $urlRegex . '|' . $djhjhostRegex . '/';
 
     // STANZAS ARRAY
@@ -22,6 +22,7 @@ function applyRegexToConfigFile($config_file):array {
 
     foreach ($matches as $match) {
 
+        // To identify the matches wich correspond to EZproxy directive
         if ($match[2] == 'DbVar0' | $match[2] == 'dbvar0') {
             //echo '<br>DBVAR<br>';
             if (isset($stanza)) {
@@ -46,7 +47,7 @@ function applyRegexToConfigFile($config_file):array {
         }
 
         if (isset($match[11])) {
-            if ($match[11] == 'HJ' | $match[11] == 'DJ') {
+            if ($match[11] == 'HJ' | $match[11] == 'DJ' | $match[11] == 'Host' | $match[11] == 'Domain') {
                 //echo '<br>HJ<br>';
                 $stanza->addItemToArray($match[12]);
             }
