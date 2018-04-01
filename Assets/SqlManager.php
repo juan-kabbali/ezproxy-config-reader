@@ -40,7 +40,7 @@ function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpas
 
         // INSERT DATABASES
         //TODO create in the stanza class an attribute whic indicates the order value
-        $sql_insert_basedatos = "INSERT INTO basedatos (cuenta_id, titulo, url, orden) VALUES ('$account_value','$stanza->title','$stanza->url')";
+        $sql_insert_basedatos = "INSERT INTO basedatos (cuenta_id, titulo, url) VALUES ('$account_value','$stanza->title','$stanza->url')";
         mysqli_query($conn, $sql_insert_basedatos) or die(mysqli_error($conn));
         echo $stanza->title." created successfully \n";
         //echo 'INSERT INTO adm_basedatos ( id, titulo, url) VALUES (' . $stanza->db_var . ', ' . $stanza->title . ', ' . $stanza->url . '); <br>';
