@@ -35,7 +35,8 @@ function applyRegexToConfigFile($config_file):array {
         if (isset($match[5])) {
             if ($match[5] == 'T' | $match[5] == 'Title' | $match[5] == 'title') {
                 //echo '<br>TITLE<br>';
-                $stanza->setTitle($match[6]);
+                $trim_title = str_replace("'","",$match[6]);
+                $stanza->setTitle($trim_title);
             }
         }
 
