@@ -14,7 +14,7 @@ $account_value;
 $mysqluser_value;
 $mysqlpass_value;
 $config_file;
-$config_file_path = "/usr/local/ezproxy/config.txt";
+$config_file_path = "/opt/intelproxy/config.txt";
 
 if(!in_array($ACCOUNT, $argv)){
     echo "ERROR: You must specify the account id --> use ".$ACCOUNT."\n";
