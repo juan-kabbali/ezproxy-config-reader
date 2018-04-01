@@ -9,7 +9,7 @@
 
 function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpass){
 
-    $servername = "localhost";
+    $servername = "172.18.0.2";
     $dbname = "intelproxy";
 
     // Create connection
