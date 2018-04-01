@@ -45,13 +45,16 @@ function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpas
         echo $stanza->title." created successfully \n";
         //echo 'INSERT INTO adm_basedatos ( id, titulo, url) VALUES (' . $stanza->db_var . ', ' . $stanza->title . ', ' . $stanza->url . '); <br>';
 
-        /*foreach ($stanza->patterns as $pattern) {
+        foreach ($stanza->patterns as $pattern) {
             // ADD PATTERNS TO DATABASE
-            $sql_insert_basedatos_patrones = "INSERT INTO basedatos_patrones (basedatos_id, patron) VALUES ('$stanza->db_var','$pattern')";
+            $sql_insert_basedatos_patrones =
+                "INSERT INTO basedatos_patrones (cuenta_id, basedatos_id, patron)
+                 VALUES ('$account_value','(SELECT id FROM basedatos WHERE titulo=$stanza->title)','$pattern')";
+            //VALUES ('$account_value','$stanza->db_var','$pattern')";
             mysqli_query($conn, $sql_insert_basedatos_patrones) or die(mysqli_error($conn));
             echo "\t\t".$pattern." added to database ".$stanza->title." successfully \n";
             //echo 'INSERT INTO adm_basedatos_patrones ( basedatos_id, patron) VALUES (' . $stanza->db_var . ', ' . $pattern . '); <br>';
-        }*/
+        }
         //echo '<br>';
     }
     mysqli_close($conn);
