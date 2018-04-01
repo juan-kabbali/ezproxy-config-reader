@@ -12,12 +12,15 @@ class Stanza
     var $title;
     var $url;
     var $patterns = array();
-
+    var $order;
+    static public $order_counter = 0;
     /**
      * Stanza constructor.
      */
     public function __construct()
     {
+        $this->order = static::$order_counter;
+        static::$order_counter ++;
     }
 
     /**
@@ -91,6 +94,22 @@ class Stanza
         if(!in_array($item, $this->patterns)){
             array_push($this->patterns, $item);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrder(): int
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param int $order
+     */
+    public function setOrder(int $order): void
+    {
+        $this->order = $order;
     }
 
 
