@@ -6,6 +6,11 @@
  * Time: 1:23 AM
  */
 
+/** TODO
+ *  start the stanzas since title directive because intelproxyv3 does not use dbvar directive
+ *  insert the DBs with the same id and order
+ */
+
 
 function GenerateSQL(array $stanzas_array, $account_value, $mysqluser, $mysqlpass){
 
