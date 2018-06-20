@@ -8,12 +8,12 @@
 
 class Stanza
 {
-    var $db_var;
     var $title;
     var $url;
     var $patterns = array();
     var $order;
     static public $order_counter = 0;
+
     /**
      * Stanza constructor.
      */
@@ -21,22 +21,6 @@ class Stanza
     {
         $this->order = static::$order_counter;
         static::$order_counter ++;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDbVar()
-    {
-        return $this->db_var;
-    }
-
-    /**
-     * @param mixed $db_var
-     */
-    public function setDbVar($db_var)
-    {
-        $this->db_var = $db_var;
     }
 
     /**

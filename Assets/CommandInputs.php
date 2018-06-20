@@ -8,6 +8,9 @@
 
 //Inputs to run syncDatabases commmand
 $ACCOUNT = '--account';
+$SERVER_IP = '--ip';
 $MYSQLUSER = '--mysqluser';
 $MYSQLPASS = '--mysqlpass';
+$CONFIG_PATH = '--directory';
+$HELP = '--help';
 

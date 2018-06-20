@@ -49,52 +49,12 @@ LogFile -strftime ezp%Y%m%d.log
 #   Intelproxy --> dynamed.com
 ####
 DbVar0 ebscodynamed
-Title EBSCO DYNAMED PLUS
-URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=dmp&groupid=main
-HJ https://search.ebscohost.com
-HJ ebsco.smartimagebase.com
-HJ eds.a.ebscohost.com
-HJ http://www.dynamed.com
-HJ dynamed.com
-HJ eds.b.ebscohost.com
-HJ eds.c.ebscohost.com
-HJ eds.d.ebscohost.com
-HJ eds.e.ebscohost.com
-HJ ehis.ebscohost.com
-HJ eoncontent.ebscohost.com
-HJ m.ebscohost.com
-HJ openurl.ebscohost.com
-HJ resolver.ebscohost.com
-HJ search.ebscohost.mobi
-HJ search.epnet.com
-HJ web.a.ebscohost.com
-HJ web.b.ebscohost.com
-HJ web.c.ebscohost.com
-HJ web.d.ebscohost.com
-HJ web.e.ebscohost.com
-HJ web.ebscohost.com
-HJ www.netlibrary.com
-HJ heritagerailway.eoncontent.ebscohost.com
-DJ heritagerailway.eoncontent.ebscohost.com
-DJ ebscohost.com
-DJ dynamed.com
-DJ ebscohost.mobi
-DJ epnet.com
+Title E''''''B())()''SCO DYNAMED PLUS
+URL http://search.ebscohost.com/login.aspx?autht^ype=ip,url,uid&custid=ns004363&profile=dmp&groupid=main
 DJ netlibrary.com
 DJ smartimagebase.com
-Find proxy.cfm?url=http://
-Replace proxy.cfm?url=http://^A
-Find /login?url=http://
-Replace /login?url=http://^A
-NeverProxy *.eoncontent.ebscohost.com
-NeverProxy ebscovideos.ebscohost.com
-NeverProxy rps2images.ebscohost.com
-NeverProxy rpsimages.ebscohost.com
-NeverProxy epmedia.ebscohost.com
-NeverProxy imageserver.ebscohost.com
-NeverProxy *.ebsco-content.com
-NeverProxy *.footnotelibrary.com
-Option AllowSendGZip
+Host dynamedplus.com
+
 
 ####
 #   EBSCO
@@ -105,7 +65,9 @@ DbVar0 ebscobussiness
 Title BUSSINESS ULTIMATE
 URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=bsu&groupid=main
 HJ https://search.ebscohost.com
-HJ ebsco.smartimagebase.com
+DJ netlibrary.com
+HJ smartimagebase.com
+Host dynamedplus.com
 HJ eds.a.ebscohost.com
 HJ eds.b.ebscohost.com
 HJ eds.c.ebscohost.com
@@ -657,7 +619,7 @@ Option AllowSendGZip
 ####
 DbVar0 ebscoeric
 Title ERIC EDUCATION RESOURCES INFORMATION CENTER
-URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=eric&groupid=main
+URL http://search.ebscohost.com/login.aspx?aut^htype=ip,url,uid&custid=ns004363&profile=ehost&defaultdb=eric&groupid=main
 HJ https://search.ebscohost.com
 HJ ebsco.smartimagebase.com
 HJ eds.a.ebscohost.com
@@ -1801,6 +1763,10 @@ NeverProxy *.ebsco-content.com
 NeverProxy *.footnotelibrary.com
 Option AllowSendGZip
 
+T -hide Ebsco oculta
+U URL http://search.ebscohost.com/login.aspx?authtype=ip/ebscooculta
+DJ esbcooculta.com
+
 ####
 #   EBSCO
 #   SOCIOLOGY SOURCE ULTIMATE
@@ -2178,6 +2144,8 @@ DbVar0 uptodate
 Title UpToDate
 URL  http://www.uptodate.com/online
 HJ https://www.uptodate.com
+HJ https://www.uptodate.com/hola
+HJ https://www.uptodate.com
 HJ https://www.uptodateonline.com
 HJ uptodate.com
 HJ uptodateonline.com
@@ -2526,6 +2494,7 @@ DJ readspeaker.com
 DJ tinygaleurl.com
 DJ nelnetsolutions.com
 DJ chiltonlibrary.com
+DJ *.mheducation.com
 DJ ggimg.com
 NeverProxy library.demographicsnow.com
 NeverProxy apis.google.com
@@ -2553,12 +2522,18 @@ NeverProxy apis.google.com
 #   EDITORIALES
 ####
 DbVar0 ebooks724
-Title E-BOOKS 7-24 Editoriales
+Title -hide E-BOOKS 7-24 Editoriales
 URL http://www.ebooks7-24.com
 DJ *.ebooks7-24.com
 DJ *.mcgraw-hill.es
 DJ *.mcgraw-hill.com
 DJ *.mheducation.com
+
+Title E-BOOKS OTRO
+URL http://www.ebooks7-24.com
+DJ *.ebooks7-24.com
+DJ *.mcgraw-hill.es
+DJ *.mcgraw-hill.com
 
 ####
 #   E-BOOKS 7-24
@@ -2588,12 +2563,17 @@ T Cengage Learning
 U http://www.ebooks7-24.com/?ed=272
 DJ ebooks7-24.com
 
+Title -hide DOI System
+URL http://dx.doi.org
+Domain doi.org
+
+
 ####
 #   E-BOOKS 7-24
 #   CIB
 ####
 DbVar0 ebookscib
-T CIB
+T -hide CIB
 U http://www.ebooks7-24.com/?ed=270
 DJ ebooks7-24.com
 
@@ -2603,6 +2583,4 @@ DJ ebooks7-24.com
 #######################################################################################################################################
 
 
-Title -hide DOI System
-URL http://dx.doi.org
-Domain doi.org
+

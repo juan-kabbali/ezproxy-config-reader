@@ -6,55 +6,100 @@
  */
 include "Stanza.php";
 
-function applyRegexToConfigFile($config_file):array {
+function applyRegexToConfigFile($config_file): array
+{
+    // LIST OF CHARACTERS TO TRIM
+    $CHARACTERS_TO_TRIM = ["'","(",")"];
 
-    // REGEX PATTERNS
-    $dbvarRegex = '(?<dbvar>(?<!\h|#|\d|\w)(dbvar0|DbVar0)\h(.*\w))';
+    // TO FIND TITLE's
     $titleRegex = '(?<title>(?<!\h|#|\d|\w)(Title|T)\h(.*\w))';
+    $TITLE_MATCH_INDEX = 2;
+    $TITLE_DIRECTIVES = ['T', 'Title', 'title', 'TITLE'];
+
+    // TO FIND URL's
     $urlRegex = '(?<url>(?<!\h|#|\d|\w)(U|URL)\h(.*\w))';
+    $URL_MATCH_INDEX = 5;
+    $URL_DIRECTIVES = ['U', 'URL', 'url', 'Url'];
+
+    //TO FIND HOST's AND DOMAIN's
     $djhjhostRegex = '(?<djhjhost>(?<!\h|#|\d|\w)(Domain|DJ|HJ|Host)\h(.*\w))';
-    $fullRegex = '/' . $dbvarRegex . '|' . $titleRegex . '|' . $urlRegex . '|' . $djhjhostRegex . '/';
+    $PATTERNS_MATCH_INDEX = 8;
+    $PATTERNS_DIRECTIVES = ['Domain', 'DJ', 'HJ', 'Host'];
+
+    // FULL REGEX STRING
+    $fullRegex = '/' . $titleRegex . '|' . $urlRegex . '|' . $djhjhostRegex . '/';
 
     // STANZAS ARRAY
     $stanzas_array = array();
 
+    // APPLY REGEX TO CONFIG.TXT
     preg_match_all($fullRegex, $config_file, $matches, PREG_SET_ORDER, 0);
 
     foreach ($matches as $match) {
 
-        // To identify the matches wich correspond to EZproxy directive
-        if ($match[2] == 'DbVar0' | $match[2] == 'dbvar0') {
-            //echo '<br>DBVAR<br>';
-            if (isset($stanza)) {
-                array_push($stanzas_array, $stanza);
-            }
-            $stanza = new Stanza();
-            $stanza->setDbVar($match[3]);
-        }
+        // THIS FLAG ALLOWS TO CONTROL WHEN TO PUSH OR NOT A NEW STANZA
+        $have_add = false;
 
-        if (isset($match[5])) {
-            if ($match[5] == 'T' | $match[5] == 'Title' | $match[5] == 'title') {
-                //echo '<br>TITLE<br>';
-                $trim_title = str_replace("'","",$match[6]);
+        // CHECK IF THERE IS A TITLE, IF THERE IS THAT MEANS THERE IS A NEW ONE
+        if (isset($match[$TITLE_MATCH_INDEX])) {
+            if (in_array($match[$TITLE_MATCH_INDEX], $TITLE_DIRECTIVES)) {
+
+                // TURN UP FLAG TO INSERT THIS NEW STANZA AT THE END OF LOOP
+                $have_add = true;
+
+                //WE CREATE A NEW STANZA AND SET TITLE VALUE
+                $stanza = new Stanza();
+                $trim_title = str_replace($CHARACTERS_TO_TRIM, "", $match[$TITLE_MATCH_INDEX + 1]);
                 $stanza->setTitle($trim_title);
+                //echo $match[$TITLE_MATCH_INDEX].'-->' .$stanza->getTitle().'<br>';
             }
         }
 
-        if (isset($match[8])) {
-            if ($match[8] == 'U' | $match[8] == 'Url' | $match[8] == 'URL') {
-                //echo '<br>URL<br>';
-                $stanza->setUrl($match[9]);
+        // CHECK IF THERE IS A URL
+        if (isset($match[$URL_MATCH_INDEX])) {
+            if (in_array($match[$URL_MATCH_INDEX], $URL_DIRECTIVES)) {
+                $stanza->setUrl($match[$URL_MATCH_INDEX + 1]);
+                //echo $match[$URL_MATCH_INDEX].'-->' .$stanza->getUrl().'<br>';
             }
         }
 
-        if (isset($match[11])) {
-            if ($match[11] == 'HJ' | $match[11] == 'DJ' | $match[11] == 'Host' | $match[11] == 'Domain') {
-                //echo '<br>HJ<br>';
-                $stanza->addItemToArray($match[12]);
+        // CHECK IR THERE IS A PATTERN's
+        if (isset($match[$PATTERNS_MATCH_INDEX])) {
+            if (in_array($match[$PATTERNS_MATCH_INDEX], $PATTERNS_DIRECTIVES)) {
+                // CLEAN THE HTTP:// OR HTTPS:// BEFORE ADD A PATTERN
+                $stanza->addItemToArray(clean_http_or_https_from_pattern($match[$PATTERNS_MATCH_INDEX+1]));
+
+                //PRINT PATTERNS FOR DEBUG
+                for ($i = 0; $i < count($stanza->getPatterns()); $i++){
+                    //echo $match[$PATTERNS_MATCH_INDEX].'['.$i.']'. ' --> '.$stanza->getPatterns()[$i];
+                }
             }
+
         }
+
+        // WE CHECK IF FLAG IS UP TO PUSH THE STANZA INSIDE THE ARRAY AND AVOID TO LOSE INFORMATION
+        if ($have_add) {
+            array_push($stanzas_array, $stanza);
+            $have_add = false;
+        }
+
+        // TO SEPARATE PATTERNS BETWEEN DIFFERENT STANZAS
+        //echo '<br>';
     }
+
     return $stanzas_array;
+}
+
+function clean_http_or_https_from_pattern($pattern){
+    $TO_CLEAN = array(
+        0 => 'http://',
+        1 => 'https://',
+    );
+    $REPLACES = array(
+        0 => '',
+        1 => '',
+    );
+    return (str_replace($TO_CLEAN, $REPLACES, $pattern));
 }
 
 
