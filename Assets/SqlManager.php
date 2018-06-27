@@ -122,10 +122,10 @@ function patterns_generator_from_url($stanza)
     $REPLACES = array(
         0 => '',
         1 => '',
-        2 => '\\/',
-        3 => '\\.',
-        4 => '\\?',
-        5 => '\\^'
+        2 => '\\\/',
+        3 => '\\\.',
+        4 => '\\\?',
+        5 => '\\\^'
     );
     $stanza->addItemToArray('#('.str_replace($CHARACTERS_TO_SCAPE, $REPLACES, $stanza->getUrl()).")#");
     return $stanza;
