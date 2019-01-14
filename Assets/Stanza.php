@@ -11,6 +11,7 @@ class Stanza
     var $title;
     var $url;
     var $patterns = array();
+    var $patterns_one_line;
     var $order;
     static public $order_counter = 0;
 
@@ -37,6 +38,22 @@ class Stanza
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPatternsOneLine()
+    {
+        return $this->patterns_one_line;
+    }
+
+    /**
+     * @param mixed $patterns_one_line
+     */
+    public function setPatternsOneLine($patterns_one_line): void
+    {
+        $this->patterns_one_line = $patterns_one_line;
     }
 
     /**

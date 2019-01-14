@@ -11,6 +11,6 @@ $ACCOUNT = '--account';
 $SERVER_IP = '--ip';
 $MYSQLUSER = '--mysqluser';
 $MYSQLPASS = '--mysqlpass';
-$CONFIG_PATH = '--directory';
+$CONFIG_PATH = '--config';
 $HELP = '--help';
 

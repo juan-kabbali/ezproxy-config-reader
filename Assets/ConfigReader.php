@@ -40,7 +40,7 @@ function applyRegexToConfigFile($config_file): array
         // THIS FLAG ALLOWS TO CONTROL WHEN TO PUSH OR NOT A NEW STANZA
         $have_add = false;
 
-        // CHECK IF THERE IS A TITLE, IF THERE IS THAT MEANS THERE IS A NEW ONE
+        // CHECK IF THERE IS A TITLE, IF IT IS, THAT MEANS THERE IS A NEW ONE
         if (isset($match[$TITLE_MATCH_INDEX])) {
             if (in_array($match[$TITLE_MATCH_INDEX], $TITLE_DIRECTIVES)) {
 
@@ -50,7 +50,7 @@ function applyRegexToConfigFile($config_file): array
                 //WE CREATE A NEW STANZA AND SET TITLE VALUE
                 $stanza = new Stanza();
                 $trim_title = str_replace($CHARACTERS_TO_TRIM, "", $match[$TITLE_MATCH_INDEX + 1]);
-                $stanza->setTitle($trim_title);
+                $stanza->setTitle(strtolower($trim_title));
                 //echo $match[$TITLE_MATCH_INDEX].'-->' .$stanza->getTitle().'<br>';
             }
         }
@@ -71,7 +71,7 @@ function applyRegexToConfigFile($config_file): array
 
                 //PRINT PATTERNS FOR DEBUG
                 for ($i = 0; $i < count($stanza->getPatterns()); $i++){
-                    //echo $match[$PATTERNS_MATCH_INDEX].'['.$i.']'. ' --> '.$stanza->getPatterns()[$i];
+                    //echo $match[$PATTERNS_MATCH_INDEX].'['.$i.']'. ' --> '.$stanza->getPatterns()[$i].'<br>';
                 }
             }
 

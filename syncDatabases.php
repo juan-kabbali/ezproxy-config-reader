@@ -10,6 +10,10 @@ include "Assets/CommandInputs.php";
 include "Assets/ConfigReader.php";
 include "Assets/SqlManager.php";
 
+// TODO
+// add ezproxy domain and ip as a database
+// search for databases files if there is an IncludeFile Directive
+
 // VARIABLE TO STORAGE THE ACCCOUNT VALUE TO INSERT DE DB's
 $account_value;
 //$account_value = 1;
@@ -30,17 +34,17 @@ $mysqlpass_value;
 $config_file;
 
 // VARIABLE TO STORAGE THE CONFIG FILE PATH
-$config_file_path = "/usr/local/ezproxy/config.txt";
-//$config_file_path = "D:\Projects\Intelproxy\ConfigReader\Assets\config.txt";
+$config_file_path;
+//$config_file_path = "D:\Projects\Referencistas\Intelproxy\ConfigReader\Assets\config.txt";
 
 // IF THE COMMAND ASK FOR HELP
 if(in_array($HELP, $argv)){
-    echo "INTELPROXY V3 STANZAS \n";
+    echo "INTELPROXY IPC STANZAS \n";
     echo $ACCOUNT." To specify the account id where stanzas will be added \n";
     echo $SERVER_IP." To specify the mysql server ip, you can check it with docker inspect \n";
     echo $MYSQLUSER." To specify the mysql user \n";
     echo $MYSQLPASS." To specify the mysql password \n";
-    echo $CONFIG_PATH." To specify the config.txt path. By default, it will be /usr/local/ezproxy/config.txt \n";
+    echo $CONFIG_PATH." To specify the config.txt path. Use /home/{{user}}/config.txt \n";
     exit(0);
 }
 
@@ -76,9 +80,10 @@ if(!in_array($MYSQLPASS, $argv)){
     $mysqlpass_value = $argv[array_search($MYSQLPASS, $argv)+1];
 }
 
-// WE CHECK IF A CONFIG PATH IS GIVEN, IF NOT WE TAKE THE DEFAULT VALUE
+// WE CHECK IF A CONFIG PATH IS GIVEN
 if(!in_array($CONFIG_PATH, $argv)){
-    echo "CONFIG.TXT file taken from ".$config_file_path."\n";
+    echo "ERROR: You must specify the config.txt path --> use ". $CONFIG_PATH."\n";
+    exit(1);
 }else{
     $config_file_path = $argv[array_search($CONFIG_PATH, $argv)+1];
 }
@@ -91,15 +96,18 @@ if(file_exists($config_file_path)){
     exit(1);
 }
 
+echo <<< ConfirmMessage
+Confirm to run
+$account_value
+$server_ip_value
+$mysqluser_value
+$mysqlpass_value
+$config_file_path \n
+ConfirmMessage;
+
 $stanzas_array = applyRegexToConfigFile($config_file);
+
 generateSQL($stanzas_array, $account_value, $server_ip_value, $mysqluser_value, $mysqlpass_value);
 
 exit(0);
-
-
-
-
-
-
-
 

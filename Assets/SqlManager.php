@@ -18,10 +18,7 @@ function generateSQL(array $stanzas_array, $account_value, $server_ip_value, $my
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    // DELETE BEFORE CREATE REGISTRIES
-    $sql_truncate_basedatos_patrones = "DELETE FROM basedatos_patrones WHERE cuenta_id = '$account_value'";
-    mysqli_query($conn, $sql_truncate_basedatos_patrones) or die(mysqli_error($conn));
-
+    // DELETE DATABASES AND PATTERNS BEFORE CREATE REGISTRIES
     $sql_truncate_basedatos = "DELETE FROM basedatos WHERE cuenta_id = '$account_value'";
     mysqli_query($conn, $sql_truncate_basedatos) or die(mysqli_error($conn));
 
@@ -31,34 +28,28 @@ function generateSQL(array $stanzas_array, $account_value, $server_ip_value, $my
     // FOR EACH STANZA FOUNDED IN CONFIG READER FILE
     foreach ($stanzas_array as $stanza) {
 
-        // ASSIGN THE UNIQUE PATTERNS DELETING THEM
+        // ASSIGN A UNIQUE PATTERNS DELETING THEM
         $stanza->setPatterns(delete_duplicated_patterns($stanzas_array, $stanza)->getPatterns());
 
         // DELETE WILDCARD PATTERNS
         $stanza->setPatterns(delete_wildcard_patterns($stanza));
 
-        // CHECK FOR STANZAS'S VOID PATTERNS
+        // CHECK FOR STANZAS'S VOID PATTERNS AND GENERATE THEM FROM IT URL
         if(empty($stanza->getPatterns())){
-            $stanza = patterns_generator_from_url($stanza);
+            $stanza = patterns_generator($stanza, "url");
+        }else{
+            // IF THERE ARE MULTIPLES PATTERNS, CONCATENATE THEM WITH | AS A GLUE
+            $stanza = patterns_generator($stanza, "patterns");
         }
 
         // INSERT STANZA INTO BASEDATOS
-        $sql_insert_basedatos = "INSERT INTO basedatos (cuenta_id, titulo, url, orden) VALUES ('$account_value','$stanza->title','$stanza->url','$stanza->order')";
+        $sql_insert_basedatos = "INSERT INTO basedatos (cuenta_id, titulo, url, orden, patrones)
+                                 VALUES ('$account_value','$stanza->title','$stanza->url','$stanza->order','$stanza->patterns_one_line')";
         mysqli_query($conn, $sql_insert_basedatos) or die(mysqli_error($conn));
         echo $stanza->title." created successfully \n";
-        //echo 'INSERT INTO basedatos (cuenta_id, titulo, url, orden) VALUES ('.$account_value.','.$stanza->title.','.$stanza->url.','.$stanza->order.'); <br>';
-        //echo $stanza->getTitle() . " created successfully <br>";
+        echo '\t\t'.$stanza->patterns_one_line."\n";
+        //echo $sql_insert_basedatos . "<br>";
 
-        // ITERATE EACH STANZAS'S PATTERN TO GENERATE ITS SQL
-        foreach ($stanza->patterns as $pattern) {
-            // CONCATENATE SQL SENTENCES
-            $sql_insert_basedatos_patrones =
-                "INSERT INTO basedatos_patrones (cuenta_id, basedatos_id, patron)
-                 VALUES ('$account_value',(SELECT id FROM basedatos WHERE orden = $stanza->order),'$pattern')";
-            mysqli_query($conn, $sql_insert_basedatos_patrones) or die(mysqli_error($conn));
-            echo "\t\t".$pattern." added to database ".$stanza->title." successfully \n";
-            //echo $pattern . " added successfully <br>";
-        }
         // TO SEPARATE DATABASES BETWEEN THEM-SELF
         //echo '<br>';
     }
@@ -69,7 +60,7 @@ function generateSQL(array $stanzas_array, $account_value, $server_ip_value, $my
 function delete_duplicated_patterns(array $stanzas_array, $stanza)
 {
 
-    // CREATE TMP_STANZA TO COMPARE IT WITH OTHERS STANZAS AND DELETE DUPLICATED HJ OR DJ - TH LAST RECORD WILL BE SAVED
+    // CREATE TMP_STANZA TO COMPARE IT WITH OTHERS STANZAS AND DELETE DUPLICATED HJ OR DJ - THE LAST RECORD WILL BE SAVED
     $tmp_stanza = $stanza;
 
     // WE CHECK IF SOME STANZA HAS DUPLICATED PATTERNS COMPARED WITH THE OTHERS ONES
@@ -109,7 +100,7 @@ function delete_wildcard_patterns($stanza)
     return $tmp_patterns;
 }
 
-function patterns_generator_from_url($stanza)
+function patterns_generator($stanza, $source)
 {
     $CHARACTERS_TO_SCAPE = array(
         0 => 'http://',
@@ -127,7 +118,19 @@ function patterns_generator_from_url($stanza)
         4 => '\\\?',
         5 => '\\\^'
     );
-    $stanza->addItemToArray('#('.str_replace($CHARACTERS_TO_SCAPE, $REPLACES, $stanza->getUrl()).")#");
+
+    switch ($source) {
+        case "patterns":
+            $patterns_one_line = implode("|", $stanza->getPatterns());
+            $patterns_one_line = str_replace($CHARACTERS_TO_SCAPE, $REPLACES, $patterns_one_line);
+            $stanza->setPatternsOneLine($patterns_one_line);
+            break;
+
+        case "url":
+            $stanza->setPatternsOneLine(str_replace($CHARACTERS_TO_SCAPE, $REPLACES, $stanza->getUrl()));
+            echo $stanza->patterns_one_line;
+            break;
+    }
+
     return $stanza;
 }
-

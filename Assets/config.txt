@@ -44,13 +44,23 @@ LogFile -strftime ezp%Y%m%d.log
 #######################################################################################################################################
 
 ####
+#
+#
+####
+T portafolio
+U https://portafolio.edu.co
+HJ https://portafolio.edu.co
+HJ portafolio.edu.co
+DJ cdn.portafolio.edu.co
+
+####
 #   EBSCO
 #   DYNAMED PLUS
 #   Intelproxy --> dynamed.com
 ####
 DbVar0 ebscodynamed
 Title E''''''B())()''SCO DYNAMED PLUS
-URL http://search.ebscohost.com/login.aspx?autht^ype=ip,url,uid&custid=ns004363&profile=dmp&groupid=main
+URL http://search.ebscohost.com/login.aspx?authtype=ip,url,uid&custid=ns004363&profile=dmp&groupid=main
 DJ netlibrary.com
 DJ smartimagebase.com
 Host dynamedplus.com
