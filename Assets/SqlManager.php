@@ -47,7 +47,7 @@ function generateSQL(array $stanzas_array, $account_value, $server_ip_value, $my
                                  VALUES ('$account_value','$stanza->title','$stanza->url','$stanza->order','$stanza->patterns_one_line')";
         mysqli_query($conn, $sql_insert_basedatos) or die(mysqli_error($conn));
         echo $stanza->title." created successfully \n";
-        echo '\t\t'.$stanza->patterns_one_line."\n";
+        echo '\t\t'.$stanza->patterns_one_line."\n\n";
         //echo $sql_insert_basedatos . "<br>";
 
         // TO SEPARATE DATABASES BETWEEN THEM-SELF
@@ -81,7 +81,7 @@ function delete_hide_stanzas(array $stanzas_array)
 {
     foreach ($stanzas_array as $key => $stanza) {
         if (strpos($stanza->getTitle(), '-hide') !== false) {
-            echo "Warning: ".$stanza->getTitle()." database will not be added as a Intelproxy stanza \n";
+            echo "Warning: ".$stanza->getTitle()." database will not be added as a Intelproxy stanza \n\n";
             //echo "Warning: ".$stanza->getTitle()." database will not be added as a Intelproxy stanza <br>";
             unset($stanzas_array[$key]);
         }

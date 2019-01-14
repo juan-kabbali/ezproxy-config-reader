@@ -97,12 +97,12 @@ if(file_exists($config_file_path)){
 }
 
 echo <<< ConfirmMessage
-Confirm to run
+PASSED ARGUMENTS
 $account_value
 $server_ip_value
 $mysqluser_value
 $mysqlpass_value
-$config_file_path \n
+$config_file_path \n\n
 ConfirmMessage;
 
 $stanzas_array = applyRegexToConfigFile($config_file);

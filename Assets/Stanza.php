@@ -13,7 +13,7 @@ class Stanza
     var $patterns = array();
     var $patterns_one_line;
     var $order;
-    static public $order_counter = 0;
+    static public $order_counter = 1;
 
     /**
      * Stanza constructor.
