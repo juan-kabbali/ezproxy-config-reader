@@ -121,6 +121,7 @@ function add_local_stanza($name){
     $ip = gethostbyname($name);
     $patterns_one_line = $name.'|'.$ip;
     $local_stanza->setPatternsOneLine($patterns_one_line);
+    return $local_stanza;
 }
 
 
