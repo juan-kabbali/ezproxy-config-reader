@@ -11,7 +11,6 @@ include "Assets/ConfigReader.php";
 include "Assets/SqlManager.php";
 
 // TODO
-// add ezproxy domain and ip as a database
 // search for databases files if there is an IncludeFile Directive
 
 // VARIABLE TO STORAGE THE ACCCOUNT VALUE TO INSERT DE DB's
@@ -36,6 +35,7 @@ $config_file;
 // VARIABLE TO STORAGE THE CONFIG FILE PATH
 $config_file_path;
 //$config_file_path = "D:\Projects\Referencistas\Intelproxy\ConfigReader\Assets\config.txt";
+
 
 // IF THE COMMAND ASK FOR HELP
 if(in_array($HELP, $argv)){

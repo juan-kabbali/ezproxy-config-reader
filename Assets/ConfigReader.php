@@ -118,8 +118,8 @@ function add_local_stanza($name){
     $local_stanza->setOrder(100);
     $local_stanza->setTitle("Ezproxy");
     $local_stanza->setUrl("http://".$name);
-    $dig_result = dns_check_record($name);
-    $patterns_one_line = $name.'|'.$dig_result[ip];
+    $ip = gethostbyname($name);
+    $patterns_one_line = $name.'|'.$ip;
     $local_stanza->setPatternsOneLine($patterns_one_line);
 }
 
