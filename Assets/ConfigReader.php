@@ -48,7 +48,7 @@ function applyRegexToConfigFile($config_file): array
         // IF THE MATCH IS THE NAME DIRECTIVE, WE CREATE THE LOCAL STANZA
         if(isset($match[$NAME_MATCH_INDEX])){
             if (in_array($match[$NAME_MATCH_INDEX], $NAME_DIRECTIVES)) {
-                add_local_stanza($match[$NAME_MATCH_INDEX+ 1]);
+                array_push($stanzas_array, add_local_stanza($match[$NAME_MATCH_INDEX+ 1]));
             }
         }
 
