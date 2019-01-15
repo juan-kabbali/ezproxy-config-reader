@@ -26,8 +26,13 @@ function applyRegexToConfigFile($config_file): array
     $PATTERNS_MATCH_INDEX = 8;
     $PATTERNS_DIRECTIVES = ['Domain', 'DJ', 'HJ', 'Host'];
 
+    // TO FIND SERVER NAME
+    $nameRegex = '(?<name>(?<!\h|#|\d|\w)(Name)\h(.*\w))';
+    $NAME_MATCH_INDEX = 11;
+    $NAME_DIRECTIVES = ['Name'];
+
     // FULL REGEX STRING
-    $fullRegex = '/' . $titleRegex . '|' . $urlRegex . '|' . $djhjhostRegex . '/';
+    $fullRegex = '/' . $titleRegex . '|' . $urlRegex . '|' . $djhjhostRegex . '|' . $nameRegex .'/';
 
     // STANZAS ARRAY
     $stanzas_array = array();
@@ -39,6 +44,13 @@ function applyRegexToConfigFile($config_file): array
 
         // THIS FLAG ALLOWS TO CONTROL WHEN TO PUSH OR NOT A NEW STANZA
         $have_add = false;
+
+        // IF THE MATCH IS THE NAME DIRECTIVE, WE CREATE THE LOCAL STANZA
+        if(isset($match[$NAME_MATCH_INDEX])){
+            if (in_array($match[$NAME_MATCH_INDEX], $NAME_DIRECTIVES)) {
+                add_local_stanza($match[$NAME_MATCH_INDEX+ 1]);
+            }
+        }
 
         // CHECK IF THERE IS A TITLE, IF IT IS, THAT MEANS THERE IS A NEW ONE
         if (isset($match[$TITLE_MATCH_INDEX])) {
@@ -74,7 +86,6 @@ function applyRegexToConfigFile($config_file): array
                     //echo $match[$PATTERNS_MATCH_INDEX].'['.$i.']'. ' --> '.$stanza->getPatterns()[$i].'<br>';
                 }
             }
-
         }
 
         // WE CHECK IF FLAG IS UP TO PUSH THE STANZA INSIDE THE ARRAY AND AVOID TO LOSE INFORMATION
@@ -100,6 +111,16 @@ function clean_http_or_https_from_pattern($pattern){
         1 => '',
     );
     return (str_replace($TO_CLEAN, $REPLACES, $pattern));
+}
+
+function add_local_stanza($name){
+    $local_stanza = new Stanza();
+    $local_stanza->setOrder(100);
+    $local_stanza->setTitle("Ezproxy");
+    $local_stanza->setUrl("http://".$name);
+    $dig_result = dns_check_record($name);
+    $patterns_one_line = $name.'|'.$dig_result[ip];
+    $local_stanza->setPatternsOneLine($patterns_one_line);
 }
 
 
